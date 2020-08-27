@@ -43,7 +43,7 @@ public class DownloadImg {
     }
 
     public static void main(String[] args) {
-        System.out.println("获取Bing图片地址中……");
+        System.out.println("uploading");
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -59,15 +59,15 @@ public class DownloadImg {
             } else {
                 System.exit(0);
             }
-            System.out.println("图片地址:" + address);
-            System.out.println("正在下载……");
+            System.out.println("path:" + address);
+            System.out.println("downloading……");
             HttpGet getImage = new HttpGet(address);
             CloseableHttpResponse responseImg = httpClient.execute(getImage);
             HttpEntity entity = responseImg.getEntity();
 
-            writeImgEntityToFile(entity,"/home/geekgao/图片/BingImg/" + dateFormat.format(new Date()) + ".jpg");
+            writeImgEntityToFile(entity,"/home/geekgao/Image/BingImg/" + dateFormat.format(new Date()) + ".jpg");
 
-            System.out.println("下载完毕.");
+            System.out.println("Done.");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

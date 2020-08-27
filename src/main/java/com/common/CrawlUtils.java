@@ -22,7 +22,7 @@ public class CrawlUtils {
     /**
      *
      * @param id appid
-     * @return app名字
+     * @return app
      */
     public static String getAppName(String id) throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
@@ -39,8 +39,8 @@ public class CrawlUtils {
 
     /**
      *
-     * @param xml xml文档
-     * @param fileName 存储到这个地方
+     * @param xml xml
+     * @param fileName
      */
     public static void writeXmlToFile(Element xml,String fileName) throws IOException {
         Writer fileWriter = new FileWriter(fileName);
@@ -50,17 +50,15 @@ public class CrawlUtils {
     }
 
     /**
-     * 获取需要下载的app的id
-     * @param uri app类别页
-     * @param limit 获取前limit个app的评论
+     *
+     * @param uri 
+     * @param limit
      * @return
      */
     public static Set<String> getAppIds(String uri,int limit) throws IOException {
-        /*//因为根据网页源码每个appid会匹配到两次，所以获取limit个就必须获取2*limit次
         limit = limit * 2;
         Set<String> appIds = null;
 
-        //获取网页源码，得到appid
         HttpGet get = new HttpGet(uri);
         CloseableHttpResponse response = client.execute(get);
         String html = EntityUtils.toString(response.getEntity());
@@ -68,16 +66,13 @@ public class CrawlUtils {
         Pattern getAppIdRegex = Pattern.compile("(?m)/detail/index/soft_id/(.*?)\"");
         Matcher matcher = getAppIdRegex.matcher(html);
 
-        //至少有一个结果才new一个set
         if (matcher.find()) {
             appIds = new HashSet<String>();
         } else {
             return appIds;
         }
 
-        //控制获取的appid个数
         int count = 0;
-        //把所有匹配到的appid加入到结果中
         do {
             if (count < limit) {
                 appIds.add(matcher.group(1));
