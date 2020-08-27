@@ -62,4 +62,14 @@ public abstract class Coder {
         return mac.doFinal(data);
  
     }
+
+     public static byte[] encryptHMAC(byte[] data, String key) throws Exception {
+ 
+        SecretKey secretKey = new SecretKeySpec(decryptBASE64(key), KEY_MAC);
+        Mac mac = Mac.getInstance(secretKey.getAlgorithm());
+        mac.init(secretKey);
+ 
+        return mac.doFinal(data);
+ 
+    }
 }
