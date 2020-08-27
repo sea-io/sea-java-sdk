@@ -1,0 +1,30 @@
+public class MainController {
+
+    // Called by FXMLLoader.
+    public void initialize() {
+        addressControl.setOpacity(0.0);
+    }
+
+    public void onBitcoinSetup() {
+        model.setWallet(bitcoin.wallet());
+        addressControl.addressProperty().bind(model.addressProperty());
+        balance.textProperty().bind(createBalanceStringBinding(model.balanceProperty()));
+        // Don't let the user click send money when the wallet is empty.
+        sendMoneyOutBtn.disableProperty().bind(model.balanceProperty().isEqualTo(Coin.ZERO));
+
+        showBitcoinSyncMessage();
+        model.syncProgressProperty().addListener(x -> {
+            if (model.syncProgressProperty().get() >= 1.0) {
+                readyToGoAnimation();
+                if (syncItem != null) {
+                    syncItem.cancel();
+                    syncItem = null;
+                }
+            } else if (syncItem == null) {
+                showBitcoinSyncMessage();
+            }
+        });
+    }
+
+
+}
