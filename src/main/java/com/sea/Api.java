@@ -26,7 +26,16 @@ public class Api {
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRpc());
         wm.openWalletFile("wallet2.dat");
+        String ip = "http://polaris1.Sea.io";
+        String restUrl = ip + ":" + "20334";
+        String rpcUrl = ip + ":" + "20336";
+        String wsUrl = ip + ":" + "20335";
 
+        SeaSdk wm = SeaSdk.getInstance();
+        wm.setRpc(rpcUrl);
+        wm.setRestful(restUrl);
+        wm.setDefaultConnect(wm.getRpc());
+        wm.openWalletFile("wallet2.dat");
         return wm;
     }
 }
