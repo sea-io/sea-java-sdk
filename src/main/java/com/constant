@@ -1,8 +1,0 @@
-package com.constant;
-
-public class Constant {
-
-    public static final String IP = "http://polaris1.Sea.io";
-
-
-}
