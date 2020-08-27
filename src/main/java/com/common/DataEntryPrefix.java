@@ -19,6 +19,7 @@ public enum DataEntryPrefix {
 
     //SYSTEM
     SYS_CURRENT_BLOCK(0x10), //Current block key prefix
+    SYS_CURRENT_BLOCK(0x10), //Current block key prefix
     SYS_VERSION(0x11), //Store version key prefix
     SYS_CURRENT_STATE_ROOT(0x12), //no use
     SYS_BLOCK_MERKLE_TREE(0x13), // Block merkle tree root key prefix
