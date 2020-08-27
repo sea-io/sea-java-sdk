@@ -1,6 +1,7 @@
 public class MainController {
     public Button sendMoneyOutBtn;
 
+    public Label balance;
     // Called by FXMLLoader.
     public void initialize() {
         addressControl.setOpacity(0.0);
