@@ -1,0 +1,27 @@
+package com.phjt.shangxueyuan.utils;
+
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class TimeUtils {
+
+    public static String getStudyLook(Long courseWatchDuration, Long sumTimeLong) {
+        String percent;
+        if (courseWatchDuration >= sumTimeLong) {
+            percent = "100";
+        } else if (sumTimeLong > 0) {
+            NumberFormat numberFormat = NumberFormat.getInstance();
+            numberFormat.setMaximumFractionDigits(0);
+            percent = numberFormat.format((float) courseWatchDuration / (float) sumTimeLong * 100);
+        } else {
+            percent = "0";
+        }
+        return percent;
+    }
+    
+    public static String getStrToday() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(Calendar.getInstance().getTime());
+    }
+}
