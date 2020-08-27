@@ -8,6 +8,7 @@ public class TimeUtils {
 
     public static String getStudyLook(Long courseWatchDuration, Long sumTimeLong) {
         String percent;
+       
         if (courseWatchDuration >= sumTimeLong) {
             percent = "100";
         } else if (sumTimeLong > 0) {
@@ -24,4 +25,5 @@ public class TimeUtils {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(Calendar.getInstance().getTime());
     }
+    
 }
