@@ -16,7 +16,7 @@ public class Api {
     }
     public static SeaSdk getSeaSdk() throws Exception {
 
-        String ip = "http://polaris1.Sea.io";
+        String ip = Constant.IP;
         String restUrl = ip + ":" + "20334";
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
@@ -26,7 +26,7 @@ public class Api {
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRpc());
         wm.openWalletFile("wallet2.dat");
-        String ip = "http://polaris1.Sea.io";
+        String ip =   String ip = Constant.IP;
         String restUrl = ip + ":" + "20334";
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
