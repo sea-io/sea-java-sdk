@@ -1,0 +1,47 @@
+publi public static void recursiveFindEditAndSetOnTouchListener(View view) {
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (view != null && !(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (v.getContext() instanceof Activity) {
+                        SoftKeyboardUtil.hideSoftKeyboard((Activity) v.getContext());
+                    }
+
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                recursiveFindEditAndSetOnTouchListener(innerView);
+            }
+        }
+    }c class SoftKeyUtil {
+ public static void recursiveFindEditAndSetOnTouchListener(View view) {
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (view != null && !(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (v.getContext() instanceof Activity) {
+                        SoftKeyboardUtil.hideSoftKeyboard((Activity) v.getContext());
+                    }
+
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                recursiveFindEditAndSetOnTouchListener(innerView);
+            }
+        }
+    }
+}
