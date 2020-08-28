@@ -219,15 +219,15 @@ class ArgsTest {
 
     @Test
     void itShouldReturnBlankErrorMessageIfTestErrorCodeIsSet() throws Exception {
-        // Given
+        
         String schema = "";
         String[] args = {};
 
-        // When
+        
         underTest = new Args(schema, args);
         underTest.setErrorCode(Args.ErrorCode.TEST_CODE);
 
-        // Then
+      
         assertThat(underTest.errorMessage()).isBlank();
     }
 }
