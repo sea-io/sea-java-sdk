@@ -1,4 +1,4 @@
-package com.common.utils;
+package org.tron.common.util;
 
 import java.util.concurrent.locks.Lock;
 
