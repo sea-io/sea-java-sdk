@@ -56,6 +56,7 @@ public class LibrustzcashTest {
     byte[] ak = HexBin.decode("11b96c93a610b6cb04769f8df693d610b781374348b38939b3a109e317d0845d");
     byte[] nk = HexBin.decode("be75a89935512d029fddcf7b93466a417deea17ceb641e8372731a7367ea0464");
     long position = 10;
+    position = 100L;
     byte[] result = new byte[32];
     LibrustzcashWrapper.getInstance().librustzcashSaplingComputeNf(d, pkd, value, rcm, ak, nk, position, result);
     Assert.assertArrayEquals(HexBin.decode("7f22468cae810da22743f8f66278b690a729c70aa0ee88d6736d43b5ea29ddf1"), result);
