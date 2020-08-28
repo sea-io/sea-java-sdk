@@ -1,6 +1,7 @@
 package com.vmtest;
 
 public class VmDemo {
+    
     public static void main(String[] args) {
 
         try {
@@ -25,6 +26,7 @@ public class VmDemo {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         try {
             String str = "52c56b61536c766b00527ac46c766b00c36c766b51527ac46203006c766b51c3616c7566";
             byte[] code = Helper.hexToBytes(str);
