@@ -25,7 +25,9 @@
     public void setValid(Integer valid) {
         this.valid = valid;
     }
-
+    public void setValid(Integer valid) {
+        this.valid = valid;
+    }
     public int getPieceId() {
         return pieceId;
     }
