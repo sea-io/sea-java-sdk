@@ -1,0 +1,123 @@
+
+
+    private int pieceId;
+    private String pieceName;
+    private int chapterId;
+    private String chapterName;
+    private int lectureId;
+    private String lectureName;
+    private String videoId;
+    private int publishStatus;
+    private String publishDate;
+    private String letvUUID;
+    private String fileType;
+    private int studyLength;
+    private Integer valid;
+
+    
+    public Integer getValid() {
+        if (valid==null){
+            valid = 1;
+        }
+        return valid;
+    }
+
+    public void setValid(Integer valid) {
+        this.valid = valid;
+    }
+
+    public int getPieceId() {
+        return pieceId;
+    }
+
+    public void setPieceId(int pieceId) {
+        this.pieceId = pieceId;
+    }
+
+    public String getPieceName() {
+        return pieceName;
+    }
+
+    public void setPieceName(String pieceName) {
+        this.pieceName = pieceName;
+    }
+
+    public int getChapterId() {
+        return chapterId;
+    }
+
+    public void setChapterId(int chapterId) {
+        this.chapterId = chapterId;
+    }
+
+    public String getChapterName() {
+        return chapterName;
+    }
+
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
+    }
+
+    public int getStudyLength() {
+        return studyLength;
+    }
+
+    public void setStudyLength(int studyLength) {
+        this.studyLength = studyLength;
+    }
+
+    public int getLectureId() {
+        return lectureId;
+    }
+
+    public void setLectureId(int lectureId) {
+        this.lectureId = lectureId;
+    }
+
+    public String getLectureName() {
+        return lectureName;
+    }
+
+    public void setLectureName(String lectureName) {
+        this.lectureName = lectureName;
+    }
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
+
+    public int getPublishStatus() {
+        return publishStatus;
+    }
+
+    public void setPublishStatus(int publishStatus) {
+        this.publishStatus = publishStatus;
+    }
+
+    public String getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public String getLetvUUID() {
+        return letvUUID;
+    }
+
+    public void setLetvUUID(String letvUUID) {
+        this.letvUUID = letvUUID;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
