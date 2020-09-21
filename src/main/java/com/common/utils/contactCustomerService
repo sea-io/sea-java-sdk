@@ -4,3 +4,4 @@
 public static void contactCustomerPhone() {
         AppUtil.callPhone(AppUtil.getContext(), SPStaticUtils.getString(Const.TEL_SERVICE, ""));
     }
+view.setFocusable(true);
