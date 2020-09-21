@@ -1,0 +1,93 @@
+package com.phjt.etcloud.util;
+
+import android.app.Activity;
+import android.content.Context;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+
+public class SoftKeyboardUtil {
+
+    public static void initTouch(Activity activity) {
+        if (activity != null) {
+            FrameLayout contentParent =
+                    activity.getWindow().getDecorView().findViewById(android.R.id.content);
+            View content = contentParent.getChildAt(0);
+            if (content != null) {
+                SoftKeyboardUtil.recursiveFindEditAndSetOnTouchListener(content);
+            }
+        }
+    }
+
+
+    /**
+     *
+     * @param activity
+     */
+    public static void hideSoftKeyboard(Activity activity) {
+        if (activity != null) {
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) activity.getSystemService(
+                            Activity.INPUT_METHOD_SERVICE);
+            View currentFocus = activity.getCurrentFocus();
+            if (currentFocus != null) {
+                inputMethodManager.hideSoftInputFromWindow(
+                        currentFocus.getWindowToken(), 0);
+            }
+        }
+    }
+
+
+    public static void showKeyboard(EditText view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            view.requestFocus();
+            imm.showSoftInput(view, 0);
+        }
+    }
+
+
+  
+    public static void recursiveFindEditAndSetOnTouchListener(View view) {
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (view != null && !(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (v.getContext() instanceof Activity) {
+                        SoftKeyboardUtil.hideSoftKeyboard((Activity) v.getContext());
+                    }
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                recursiveFindEditAndSetOnTouchListener(innerView);
+            }
+        }
+    }
+
+    public static void hideKeyboardForAll(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        boolean isOpen = imm.isActive();
+        if (isOpen) {
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+
+    public static void hideKeyboard(Context context, EditText editText) {
+        if (context != null && editText != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+}
