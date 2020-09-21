@@ -1,0 +1,3 @@
+ public static void contactCustomerService() {
+        ArchitectUtils.startActivity(HomeCustomerServiceActivity.class);
+    }
