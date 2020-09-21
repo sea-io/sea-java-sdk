@@ -1,3 +1,6 @@
  public static void contactCustomerService() {
         ArchitectUtils.startActivity(HomeCustomerServiceActivity.class);
     }
+public static void contactCustomerPhone() {
+        AppUtil.callPhone(AppUtil.getContext(), SPStaticUtils.getString(Const.TEL_SERVICE, ""));
+    }
