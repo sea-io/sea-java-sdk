@@ -1,7 +1,0 @@
-//Log record
- //   @Subscribe
- //   public void updateIdentificationStatus(IdentityAuthChangeEvent messageEvent) {
- //       if (mPresenter != null) {
-  //          mPresenter.getWalletUserInfo();
- //       }
-  // }
