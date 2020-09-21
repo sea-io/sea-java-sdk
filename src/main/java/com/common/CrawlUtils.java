@@ -80,8 +80,8 @@ public class CrawlUtils {
             }
         } while (matcher.find());
 
-        return appIds;*/
-        Set<String> s = new HashSet<String>();
+        return appIds;
+//         Set<String> s = new HashSet<String>();
 //        s.add("3581");
 //        s.add("778702");
 //        s.add("1586");
@@ -98,12 +98,12 @@ public class CrawlUtils {
 //        s.add("1840672");
 //        s.add("1643");
 //        s.add("893686");
-       s.add("3032510");
-        s.add("1936882");
+//        s.add("3032510");
+//         s.add("1936882");
 //        s.add("7256");
 //        s.add("727030");
 
-        return s;
+//         return s;
     }
 
     public static int getCommentCount(int appId) throws IOException {
