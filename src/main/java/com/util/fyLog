@@ -1,0 +1,10 @@
+    @Override
+//    protected void onDraw(Canvas canvas) {
+//        //LogUtils.d(TAG, "onDraw() " + mCountOnDraw++ + ", getMeasuredHeight() " + getMeasuredHeight());
+//        if (!mHasDrawn) {
+//            resetText();
+//        }
+//        super.onDraw(canvas);
+//        mHasDrawn = true;
+//        mIsInner = false;
+//    }
