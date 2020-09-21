@@ -1,0 +1,58 @@
+package com.phjt.etcloud.util;
+
+import com.phjt.base.mvp.IBaseView;
+import com.phjt.base.utils.RxLifecycleUtils;
+
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+public class RxUtils {
+
+    /**
+     *
+     * @param view IBaseView
+     * @param <T>  T
+     * @return ObservableTransformer RxJava compose
+     */
+    public static <T> ObservableTransformer<T, T> applySchedulersWithLoading(IBaseView view) {
+        return upstream -> upstream
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> view.showLoading())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(view::hideLoading)
+                .compose(RxLifecycleUtils.bindToLifecycle(view));
+    }
+
+    /**
+     *
+     * @param view IBaseView
+     * @param <T>  T
+     * @return ObservableTransformer RxJava compose
+     */
+    public static <T> ObservableTransformer<T, T> applySchedulers(IBaseView view) {
+        return upstream -> upstream
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(view));
+    }
+
+    /**
+     *
+     * @param <T> T
+     * @return ObservableTransformer RxJava compose
+     */
+    public static <T> ObservableTransformer<T, T> applySchedulers() {
+        return upstream -> upstream
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static void dispose(Disposable dis) {
+        if (dis != null && !dis.isDisposed()) {
+            dis.dispose();
+        }
+    }
+}
