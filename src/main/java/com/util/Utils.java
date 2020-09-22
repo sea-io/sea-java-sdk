@@ -11,6 +11,7 @@ public interface Utils {
     return getLibrary(name);
   }
 
+  
   static String getLibrary(String name) throws IOException {
     String platform;
     String extension;
@@ -41,8 +42,8 @@ public interface Utils {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    return fileOut.getAbsolutePath();
     //
+    return fileOut.getAbsolutePath();
   }
 
 }
