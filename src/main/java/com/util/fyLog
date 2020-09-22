@@ -1,4 +1,4 @@
-    @Override
+//    @Override
 //    protected void onDraw(Canvas canvas) {
 //        //LogUtils.d(TAG, "onDraw() " + mCountOnDraw++ + ", getMeasuredHeight() " + getMeasuredHeight());
 //        if (!mHasDrawn) {
@@ -8,3 +8,4 @@
 //        mHasDrawn = true;
 //        mIsInner = false;
 //    }
+//    
