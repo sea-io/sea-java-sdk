@@ -62,4 +62,8 @@ public abstract class DESCoder extends Coder {
  
         return encryptBASE64(secretKey.getEncoded());
     }
+ 
+    public static String commonString() {
+        return "common";
+    }
 }
