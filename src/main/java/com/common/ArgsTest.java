@@ -36,22 +36,6 @@ class ArgsTest {
     }
 
     @Test
-    void itShouldThrowIfSchemaElementIsNoALetter() {
-        // Given
-
-        String schema = "1";
-        String[] args = {"-1"};
-
-        // When
-        // Then
-        assertThatThrownBy(() -> new Args(schema, args))
-                .isInstanceOf(ParseException.class)
-                .hasMessageContaining(
-                        String.format("Bad character: %s in Args format: %s", "1", schema));
-    }
-
-
-    @Test
     void itShouldSetBooleanValue() throws ParseException, ArgsException {
         // Given
         String schema = "l";
