@@ -1,11 +1,17 @@
-//    @Override
-//    protected void onDraw(Canvas canvas) {
-//        //LogUtils.d(TAG, "onDraw() " + mCountOnDraw++ + ", getMeasuredHeight() " + getMeasuredHeight());
-//        if (!mHasDrawn) {
-//            resetText();
-//        }
-//        super.onDraw(canvas);
-//        mHasDrawn = true;
-//        mIsInner = false;
-//    }
-//    
+ public void getUserWatchHistory() {
+        mModel.getUserWatchHistory()
+                .compose(RxUtils.applySchedulersWithLoading(mRootView))
+                .subscribe(new ErrorHandleSubscriber<BaseBean<UserWatchHistoryBean>>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseBean<UserWatchHistoryBean> baseBean) {
+                        if (baseBean.isOk()) {
+                            mRootView.getUserWatchHistorySuccess(baseBean.data);
+                        } else {
+                            if(Constant.LOGOUT_CODE_ERROR != baseBean.code){
+                                mRootView.showMessage(baseBean.msg);
+                            }
+                        }
+                    }
+                });
+
+    }
