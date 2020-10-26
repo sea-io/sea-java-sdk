@@ -18,7 +18,6 @@ public class FileUtils {
         fos.close();
         bis.close();
         is.close();
-
         return file;
     }
 
