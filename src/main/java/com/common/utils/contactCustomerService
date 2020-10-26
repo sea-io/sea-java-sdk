@@ -1,7 +1,7 @@
  public static void ContactCustomerService() {
         ArchitectUtils.startActivity(HomeCustomerServiceActivity.class);
     }
-public static void contactCustomerPhone() {
+public static void ContactCustomerPhone() {
         AppUtil.callPhone(AppUtil.getContext(), SPStaticUtils.getString(Const.TEL_SERVICE, ""));
     }
 view.setFocusable(true);
