@@ -1,0 +1,79 @@
+package School;
+class Student {
+private String name;
+private int age;
+private float computer;
+private float math;
+private float english;
+ 
+public Student(String n,int a,float c,float m,float e){
+	this.setName(n);
+	this.setAge(a);
+	this.setComputer(c);
+	this.setMath(m);
+	this.setEnglish(e);
+}
+public float sum(){
+	return computer+math+english;
+}
+public float avg(){
+	return this.sum()/3;
+}
+public float max(){
+	float max=computer>math?math:computer;
+	max=max>english?max:english;
+	return max;
+}
+public float min(){
+	float min=computer<math?math:computer;
+	min=min<english?min:english;
+	return min;
+}
+public String getInto(){
+	return "student：\n"+
+            "\tname："+this.getName()+"\n"+
+			"\tage："+this.getAge()+"\n"+
+            "\tscore："+this.getComputer()+"\n"+
+			"\tmath："+this.getEnglish();
+}
+public void setName(String n){
+	this.name=n;
+}
+public void setAge(int a){
+	this.age=a;
+}
+public void setComputer(float c){
+	this.computer=c;
+}
+public void setMath(float m){
+	this.math=m;
+}
+public void setEnglish(float e){
+	this.english=e;
+}
+public String getName(){
+	return name;
+}
+public int getAge(){
+	return age;
+}
+public float getComputer(){
+	return computer;
+}
+public float getMath(){
+	return math;
+}
+public float getEnglish(){
+	return english;
+}
+}
+public class Demo{
+	public static void main(String[] args){
+		Student stu=new Student("wade",45,86.0f,83.0f,90.0f);
+		stu.getInto();
+		System.out.println("total："+stu.sum());
+		System.out.println("ave："+stu.avg());
+		System.out.println("highScore："+stu.max());
+		System.out.println("lowScore："+stu.min());
+	}
+}
