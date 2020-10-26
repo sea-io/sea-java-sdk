@@ -33,4 +33,10 @@ public class TimeUtils {
         return df.format(Calendar.getInstance().getTime());
     }
     
+     public static String getHour() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        return ((hour < 10 ? "0" + hour : hour) + "");
+    }
+    
 }
