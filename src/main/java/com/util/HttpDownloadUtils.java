@@ -24,10 +24,9 @@ public class HttpDownloadUtils {
         return getData;
     }
 
-
-//    /**
-//     * 从输入流中获取字节数组
-//     */
+    /**
+     * remove randance code
+     */
     public static byte[] readInputStream(InputStream inputStream) throws IOException {
         byte[] buffer = new byte[inputStream.available()];
         int len = 0;
