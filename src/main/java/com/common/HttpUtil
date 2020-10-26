@@ -1,0 +1,33 @@
+public class HttpUtil {
+    public static RequestBody jsonToBody(String json) {
+        MediaType contentType = MediaType.parse("application/json;charset=UTF-8");
+        return RequestBody.create(contentType, json);
+    }
+
+    public static RequestBody mapToBody(Map<String, Object> map) {
+        MediaType contentType = MediaType.parse("application/json;charset=UTF-8");
+        return RequestBody.create(contentType, new Gson().toJson(map));
+    }
+
+  
+    public static String getReqUrl(String url, Map<String, String> params) {
+        StringBuilder builder = new StringBuilder(url);
+        if (params != null) {
+            boolean isFirst = true;
+            for (String key : params.keySet()) {
+                if (key != null && params.get(key) != null) {
+                    if (isFirst) {
+                        isFirst = false;
+                        builder.append(url.contains("?") ? "&" : "?");
+                    } else {
+                        builder.append("&");
+                    }
+                    builder.append(key)
+                            .append("=")
+                            .append(params.get(key));
+                }
+            }
+        }
+        return builder.toString();
+    }
+}
