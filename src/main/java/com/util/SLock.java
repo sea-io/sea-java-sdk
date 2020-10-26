@@ -22,6 +22,9 @@ public final class SLock implements AutoCloseable {
     this.lock.unlock();
   }
   
+  /**
+  * open or
+  */
   public final void open(){
     this.lock.lock();
 }
