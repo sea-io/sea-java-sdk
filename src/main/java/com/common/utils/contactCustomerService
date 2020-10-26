@@ -1,4 +1,4 @@
- public static void contactCustomerService() {
+ public static void ContactCustomerService() {
         ArchitectUtils.startActivity(HomeCustomerServiceActivity.class);
     }
 public static void contactCustomerPhone() {
