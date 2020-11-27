@@ -14,6 +14,7 @@ public interface Utils {
   
   static String getLibrary(String name) throws IOException {
     String platform;
+    String model;
     String extension;
     String os = System.getProperty("os.name");
     if ("linux".equalsIgnoreCase(os)) {
@@ -42,7 +43,7 @@ public interface Utils {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    //
+    //修改ed
     return fileOut.getAbsolutePath();
   }
 
