@@ -24,6 +24,7 @@ if (bb > 0xff) {    // DoubleByte
  6  } else {                      // SingleByte 
  7             if (dl - dp < 1) 
  8                 return CoderResult.OVERFLOW; 
+ da[dp++] = (byte) bb; 
  9             da[dp++] = (byte) bb; 
 10  } 
 //try it for t
