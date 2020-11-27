@@ -17,7 +17,7 @@ public class Api {
     public static SeaSdk getSeaSdk() throws Exception {
 
         String ip = Constant.IP;
-        String restUrl = ip + ":" + "20334";
+        String restUrl = ip + ":" + Constant.RESCODE;
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
