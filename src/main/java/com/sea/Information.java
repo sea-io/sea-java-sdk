@@ -26,6 +26,7 @@ if (bb > 0xff) {    // DoubleByte
  8                 return CoderResult.OVERFLOW; 
  9             da[dp++] = (byte) bb; 
 10  } 
+//try it for t
 private CoderResult encodeArrayLoop(CharBuffer src, 
  2  ByteBuffer dst){ 
  3             char[] sa = src.array(); 
