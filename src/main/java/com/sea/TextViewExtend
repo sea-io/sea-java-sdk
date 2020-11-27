@@ -1,0 +1,279 @@
+package com.phjt.etcloud.widgets;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+
+import com.blankj.utilcode.util.RegexUtils;
+import com.phjt.etcloud.R;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * @author lxt
+ */
+public class TextViewExtend extends RelativeLayout {
+
+
+    TextView tvStar;
+    TextView tvItemTitle;
+    EditText etItemText;
+    TextView tvItemText;
+    RelativeLayout mRelContainer;
+    ImageView mIvIconRight;
+
+    private int inputRule;
+    String textHint;
+    boolean isMustRequired;
+    String itemTitle;
+    String itemText;
+    private boolean isEditor;
+    private boolean isShowIconRight;
+    int iconRightResource;
+
+    int phoneLength = 11;
+    int minLength = 2;
+    int maxLength = 10;
+    int iconRightWidth;
+    int iconRightHeight;
+
+    private final int INPUT_PHONE = 1;
+    private final int INPUT_TEXT_CHAR_2_6 = 2;
+    private final int INPUT_TEXT_CHAR_2_10 = 3;
+    private boolean hasError;
+    int maxLines = 1;
+
+
+    public TextViewExtend(Context context) {
+        this(context, null);
+    }
+
+    public TextViewExtend(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public TextViewExtend(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView(context, attrs);
+    }
+
+    private void initView(Context context, AttributeSet attrs) {
+        LayoutInflater.from(context).inflate(R.layout.widget_text_extend, this);
+
+        tvStar = findViewById(R.id.tv_star);
+        tvItemTitle = findViewById(R.id.tv_item_title);
+        etItemText = findViewById(R.id.et_item_value);
+        tvItemText = findViewById(R.id.tv_item_value);
+        mRelContainer = findViewById(R.id.rel_container);
+        mIvIconRight = findViewById(R.id.iv_arrow_right);
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextViewExtend);
+
+        inputRule = typedArray.getInt(R.styleable.TextViewExtend_input_rules, 0);
+        maxLines = typedArray.getInt(R.styleable.TextViewExtend_input_rules, 1);
+        textHint = typedArray.getString(R.styleable.TextViewExtend_text_hint);
+        isMustRequired = typedArray.getBoolean(R.styleable.TextViewExtend_is_must_required, false);
+        itemTitle = typedArray.getString(R.styleable.TextViewExtend_item_title);
+        itemText = typedArray.getString(R.styleable.TextViewExtend_item_text);
+        isEditor = typedArray.getBoolean(R.styleable.TextViewExtend_is_editor, false);
+        isShowIconRight = typedArray.getBoolean(R.styleable.TextViewExtend_is_show_arrow, false);
+        iconRightResource = typedArray.getResourceId(R.styleable.TextViewExtend_icon_right, R.drawable.ic_mine_item_enter);
+
+        iconRightWidth = typedArray.getDimensionPixelSize(R.styleable.TextViewExtend_icon_right_width, 0);
+        iconRightHeight = typedArray.getDimensionPixelSize(R.styleable.TextViewExtend_icon_right_height, 0);
+
+        typedArray.recycle();
+
+        if (!TextUtils.isEmpty(textHint)) {
+            etItemText.setHint(textHint);
+            tvItemText.setHint(textHint);
+        }
+
+        if (!TextUtils.isEmpty(itemTitle)) {
+            tvItemTitle.setText(itemTitle);
+        }
+
+        if (!TextUtils.isEmpty(itemText)) {
+            setText(itemText);
+        }
+
+        setMaxLines(maxLines);
+
+        tvStar.setVisibility(isMustRequired ? VISIBLE : GONE);
+        refreshIconRight();
+
+        mIvIconRight.setImageResource(iconRightResource);
+
+        mIvIconRight.setMinimumWidth(iconRightWidth);
+        mIvIconRight.setMinimumHeight(iconRightHeight);
+
+
+        refreshItemText();
+
+
+        initInputType();
+    }
+
+    private void refreshIconRight() {
+        mIvIconRight.setVisibility(isShowIconRight ? VISIBLE : GONE);
+    }
+
+    private void refreshItemText() {
+        etItemText.setVisibility(isEditor ? VISIBLE : GONE);
+        tvItemText.setVisibility(!isEditor ? VISIBLE : GONE);
+    }
+
+    public void setShowIconRight(boolean showIconRight) {
+        isShowIconRight = showIconRight;
+        refreshIconRight();
+
+    }
+
+    public ImageView getmIvIconRight() {
+        return mIvIconRight;
+    }
+
+    public void setEditor(boolean editor) {
+        isEditor = editor;
+        refreshItemText();
+    }
+
+    public TextView getTvItemText() {
+        return tvItemText;
+    }
+
+    public String getItemText() {
+
+        return isEditor ? etItemText.getText().toString() : tvItemText.getText().toString();
+
+    }
+
+    private void initInputType() {
+        InputFilter[] filterArray = new InputFilter[1];
+        switch (inputRule) {
+            case INPUT_PHONE:
+                etItemText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                filterArray[0] = new InputFilter.LengthFilter(phoneLength);
+                etItemText.addTextChangedListener(new InputWatcher(INPUT_PHONE));
+
+                etItemText.setFilters(filterArray);
+                break;
+            case INPUT_TEXT_CHAR_2_6:
+                filterArray[0] = new InputFilter.LengthFilter(6);
+                etItemText.addTextChangedListener(new InputWatcher(INPUT_TEXT_CHAR_2_6));
+                etItemText.setFilters(filterArray);
+                break;
+            case INPUT_TEXT_CHAR_2_10:
+                filterArray[0] = new InputFilter.LengthFilter(maxLength);
+                etItemText.addTextChangedListener(new InputWatcher(INPUT_TEXT_CHAR_2_10));
+                etItemText.setFilters(filterArray);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    class InputWatcher implements TextWatcher {
+        int type;
+
+        public InputWatcher(int type) {
+            this.type = type;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (!TextUtils.isEmpty(s.toString())) {
+
+                if (type == INPUT_TEXT_CHAR_2_6) {
+                    String regex = "^[\u4e00-\u9fa5]{2,6}";
+                    Pattern pattern = Pattern.compile(regex);
+
+                    Matcher matcher = pattern.matcher(s.toString());
+                    if (matcher.matches()) {
+                        showCorrect();
+                    } else {
+                        showError();
+                    }
+                } else if (type == INPUT_TEXT_CHAR_2_10) {
+                    String regex = "^[\u4e00-\u9fa5]{2,10}";
+                    Pattern pattern = Pattern.compile(regex);
+
+                    Matcher matcher = pattern.matcher(s.toString());
+                    if (matcher.matches()) {
+                        showCorrect();
+                    } else {
+                        showError();
+                    }
+                } else if (type == INPUT_PHONE) {
+
+                    if (RegexUtils.isMobileExact(s.toString())) {
+                        showCorrect();
+                    } else {
+                        showError();
+                    }
+                }
+
+
+            }
+
+        }
+    }
+
+    public boolean isHasError() {
+        return hasError;
+    }
+
+    private void showError() {
+        hasError = true;
+        etItemText.setTextColor(ContextCompat.getColor(getContext(), R.color.tab_color_true));
+        mRelContainer.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.monitor_input_error_shape));
+    }
+
+
+    private void showCorrect() {
+        hasError = false;
+        etItemText.setTextColor(ContextCompat.getColor(getContext(), R.color.color_999999));
+        mRelContainer.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.shape_bg_fffff_4dp));
+    }
+
+    public void setText(String info) {
+        if (!TextUtils.isEmpty(info)) {
+
+            etItemText.setText(info);
+
+            tvItemText.setText(info);
+
+        }
+    }
+
+    public void setMaxLines(int lines) {
+        etItemText.setMaxLines(lines);
+        tvItemText.setMaxLines(lines);
+    }
+
+
+}
