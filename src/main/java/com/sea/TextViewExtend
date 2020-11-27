@@ -178,6 +178,7 @@ public class TextViewExtend extends RelativeLayout {
                 break;
             case INPUT_TEXT_CHAR_2_10:
                 filterArray[0] = new InputFilter.LengthFilter(maxLength);
+                etItemText.addTextChangedListener(new InputWatcher(INPUT_TEXT_CHAR_2_6));
                 etItemText.addTextChangedListener(new InputWatcher(INPUT_TEXT_CHAR_2_10));
                 etItemText.setFilters(filterArray);
                 break;
