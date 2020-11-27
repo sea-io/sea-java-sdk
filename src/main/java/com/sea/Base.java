@@ -4,6 +4,6 @@ class Base {
 		System.out.println(0100);//64
 		System.out.println(100);//100
 		System.out.println(0x100);//256
-		System.out.println(08);//?
+		System.out.println(04/02);//?
 	}
 }
