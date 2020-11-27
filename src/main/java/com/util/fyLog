@@ -13,5 +13,16 @@
                         }
                     }
                 });
+                
+                
+                override fun onNext(t: T) {
+                when {
+                    t.code == ErrorStatus.SUCCESS -> onSuccess.invoke(t)
+                    t.code == ErrorStatus.TOKEN_INVALID -> {
+                        // Token 过期，重新登录
+                    }
+                    else -> view?.showDefaultMsg(t.msg)
+                }
+            }
 
     }
