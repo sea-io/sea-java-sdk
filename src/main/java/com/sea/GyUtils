@@ -7,15 +7,11 @@ import java.util.Calendar;
 public class TimeUtils {
 
     public static final String DF_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
-    
     public static final String DF_YYYY_MM_DD_HH_MM = "yyyy-MM-dd HH:mm";
-
     public static final String DF_YYYY_MM_DD = "yyyy-MM-dd";
 
     public static String getStudyLook(Long courseWatchDuration, Long sumTimeLong) {
-    
         String percent;
-      
         if (courseWatchDuration >= sumTimeLong) {
             percent = "100";
         } else if (sumTimeLong > 0) {
@@ -38,5 +34,4 @@ public class TimeUtils {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         return ((hour < 10 ? "0" + hour : hour) + "");
     }
-    
 }
