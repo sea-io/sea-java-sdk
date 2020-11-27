@@ -69,7 +69,7 @@ private CoderResult encodeArrayLoop(CharBuffer src,
 40                     da[dp++] = (byte)(0x80 | (uc & 0x3f)); 
 41                     sp++;  // 2 chars 
 42                 } else { 
-43                     // 3 bytes, 16 bits 
+43                     // 3 bytes, 16 bits so can do it!
 44                     if (dl - dp < 3) 
 45                         return overflow(src, sp, dst, dp); 
 46                     da[dp++] = (byte)(0xe0 | ((c >> 12))); 
