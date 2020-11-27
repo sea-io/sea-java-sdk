@@ -1,0 +1,240 @@
+package com.phjt.etcloud.widgets;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+
+import com.blankj.utilcode.util.SizeUtils;
+import com.phjt.etcloud.R;
+import com.phjt.etcloud.databinding.CommonToolbarBinding;
+import com.phjt.etcloud.home.contract.ITitleClickListener;
+import com.phjt.etcloud.home.contract.ITitleController;
+import com.phjt.etcloud.util.AppUtil;
+
+
+
+public class Toolbar extends FrameLayout implements ITitleController {
+
+    private CommonToolbarBinding mBinding;
+
+    private ITitleClickListener titleClickListener;
+
+    public Toolbar(@NonNull Context context) {
+        this(context, null);
+    }
+
+    public Toolbar(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public Toolbar(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.common_toolbar, this, true);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Toolbar);
+        boolean showConfirm = a.getBoolean(R.styleable.Toolbar_tbShowConfirm, false);
+        boolean showBack = a.getBoolean(R.styleable.Toolbar_tbShowBack, true);
+        boolean transparentStyleFlag = a.getBoolean(R.styleable.Toolbar_tbTransparentStyle, false);
+        int titleRes = a.getResourceId(R.styleable.Toolbar_tbTitle, -1);
+        int titleTextColor = a.getResourceId(R.styleable.Toolbar_titleTextColor,  -1);
+        int color = a.getColor(R.styleable.Toolbar_tbBackground,-1);
+        boolean showDivider = a.getBoolean(R.styleable.Toolbar_tbDividerLine, false);
+
+        MarginLayoutParams params = (MarginLayoutParams) mBinding.barDivider.getLayoutParams();
+        params.topMargin = (int) (context.getResources().getDimension(R.dimen.toolbar_height) - SizeUtils.dp2px(0.5f));
+        mBinding.barDivider.setLayoutParams(params);
+        mBinding.ivBack.setVisibility(showBack ? VISIBLE : INVISIBLE);
+        setDividerLineVisible(showDivider);
+        setShowConfirm(showConfirm);
+        setTbTitle(titleRes);
+        setBackGround(color);
+        setTitleColor(titleTextColor);
+        setTransparentStyle(transparentStyleFlag);
+
+        mBinding.ivBack.setOnClickListener(v -> {
+            if (titleClickListener != null) {
+                titleClickListener.onLeftBtnClick(v);
+            } else {
+                if (getContext() instanceof Activity) {
+                    AppUtil.hideSystemKeyBoardAnyway(getContext(), ((Activity) getContext()).getWindow().getCurrentFocus());
+                    ((Activity) getContext()).setResult(Activity.RESULT_CANCELED);
+                    ((Activity) getContext()).finish();
+                }
+            }
+        });
+        mBinding.ivConfirm.setOnClickListener(v -> {
+            if (titleClickListener != null)
+                titleClickListener.onRightBtnClick(v);
+        });
+        mBinding.tvTitleRight.setOnClickListener(v -> {
+            if (titleClickListener != null)
+                titleClickListener.onRightBtnClick(v);
+        });
+        a.recycle();
+    }
+
+    private void setTransparentStyle(boolean whitStyleFlag) {
+        if (whitStyleFlag) {
+            mBinding.ivBack.setImageResource(R.drawable.iv_back_white);
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mBinding.ivBack.getLayoutParams();
+            layoutParams.setMarginStart(SizeUtils.dp2px(10));
+            mBinding.ivBack.setLayoutParams(layoutParams);
+            mBinding.llContainer.setBackgroundColor(Color.TRANSPARENT);
+            mBinding.tvTitle.setTextColor(Color.WHITE);
+            mBinding.tvTitleRight.setTextColor(Color.WHITE);
+        }
+    }
+
+    public void setConfirmIconRes(int res) {
+        if (mBinding.ivConfirm.getVisibility() != VISIBLE) {
+            mBinding.ivConfirm.setVisibility(VISIBLE);
+        }
+        mBinding.ivConfirm.setImageResource(res);
+    }
+
+    public void setTbTitle(int res) {
+        if (res != -1) {
+            mBinding.tvTitle.setText(res);
+        }
+    }
+
+    public void setBackGround(int res) {
+        if (res != -1) {
+            mBinding.llContainer.setBackgroundColor(res);
+        }
+    }
+
+    public void setBackGroundAlfAlpha(int alpha) {
+        if (alpha >= 0) {
+            mBinding.llContainer.getBackground().mutate().setAlpha(alpha);
+        }
+    }
+
+    @Override
+    public void setTitleText(String text) {
+        if (!TextUtils.isEmpty(text)) {
+            mBinding.tvTitle.setText(text);
+        }
+    }
+
+    public void setDividerLineVisible(boolean visible) {
+        mBinding.barDivider.setVisibility(visible ? VISIBLE : GONE);
+    }
+
+    public void setShowConfirm(boolean showConfirm) {
+        mBinding.ivConfirm.setVisibility(showConfirm ? VISIBLE : GONE);
+    }
+
+    public void setShowTitle(boolean show) {
+        mBinding.tvTitle.setVisibility(show ? VISIBLE : GONE);
+    }
+
+    public void setBackButtonVisible(boolean show) {
+        mBinding.ivBack.setVisibility(show ? VISIBLE : GONE);
+    }
+
+    public void setOnConfirmClickListener(OnClickListener onClickListener) {
+        mBinding.ivConfirm.setOnClickListener(onClickListener);
+    }
+
+    public void setOnRightTextClickListener(OnClickListener onClickListener) {
+        mBinding.tvTitleRight.setOnClickListener(onClickListener);
+    }
+
+    public void setOnBackClickListener(OnClickListener onClickListener) {
+        mBinding.ivBack.setOnClickListener(onClickListener);
+    }
+
+    public void setTitleColor(int color) {
+        if (color != -1) {
+            mBinding.tvTitle.setTextColor(getResources().getColor(color));
+        }
+    }
+
+    public void setBackCRes(int res) {
+        if (res != -1) {
+            mBinding.ivBack.setImageResource(res);
+        }
+    }
+
+    public TextView getRightTv() {
+        return mBinding.tvTitleRight;
+    }
+
+    public CommonToolbarBinding getBinding() {
+        return mBinding;
+    }
+
+    @Override
+    public void setRightBtnText(String text) {
+        mBinding.tvTitleRight.setVisibility(VISIBLE);
+        mBinding.ivConfirm.setVisibility(GONE);
+        mBinding.tvTitleRight.setText(text);
+    }
+
+    @Override
+    public void setRightBtnText(int resId) {
+        mBinding.tvTitleRight.setVisibility(VISIBLE);
+        mBinding.ivConfirm.setVisibility(GONE);
+        mBinding.tvTitleRight.setText(getResources().getString(resId));
+    }
+
+    @Override
+    public void setRightBtnIcon(int resId) {
+        mBinding.tvTitleRight.setVisibility(GONE);
+        mBinding.ivConfirm.setVisibility(VISIBLE);
+        mBinding.ivConfirm.setImageResource(resId);
+    }
+
+    @Override
+    public void setTitleText(int resId) {
+        if (resId != Resources.ID_NULL)
+            setTitleText(getResources().getString(resId));
+    }
+
+    @Override
+    public void setLeftBtnIcon(int resId) {
+        if (resId != Resources.ID_NULL)
+            mBinding.ivBack.setImageResource(resId);
+    }
+
+    @Override
+    public void setTitleClickListener(ITitleClickListener clickListener) {
+        this.titleClickListener = clickListener;
+    }
+
+    @Override
+    public void setTitleBackgroundColor(int color) {
+        setBackgroundColor(color);
+    }
+
+    @Override
+    public void setTitleBackgroundResource(int resId) {
+        if (resId != Resources.ID_NULL)
+            setBackGround(resId);
+    }
+
+    @Override
+    public void setToolBarGone() {
+        mBinding.ivConfirm.setVisibility(GONE);
+        mBinding.tvTitleRight.setVisibility(GONE);
+        mBinding.tvTitle.setVisibility(GONE);
+        mBinding.ivBack.setVisibility(GONE);
+        mBinding.llContainer.setVisibility(GONE);
+        mBinding.barDivider.setVisibility(GONE);
+        setVisibility(GONE);
+        mBinding.getRoot().setVisibility(GONE);
+    }
+}
