@@ -1,0 +1,41 @@
+public class BanMineBanner extends RelativeLayout {
+
+    private View view;
+
+    /**
+     * Instantiates a new Ban mine banner.
+     *
+     * @param context the context
+     */
+    public BanMineBanner(Context context) {
+        super(context);
+        init(context);
+    }
+
+    /**
+     * Instantiates a new Ban mine banner.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
+    public BanMineBanner(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context);
+    }
+
+    /**
+     * Instantiates a new Ban mine banner.
+     *
+     * @param context      the context
+     * @param attrs        the attrs
+     * @param defStyleAttr the def style attr
+     */
+    public BanMineBanner(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context);
+    }
+
+   private void  init(Context context){
+       view = LayoutInflater.from(context).inflate(R.layout.view_mine_banner, this, true);
+   }
+}
