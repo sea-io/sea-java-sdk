@@ -7,6 +7,7 @@
         System.out.println(a-b);
         System.out.println(a+b);
         System.out.println(a+b);
+        System.out.println(a-1);
     }
 
     public static void boolType() {
