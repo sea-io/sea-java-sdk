@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 public class TimeUtils {
 
+  public static String TIME_SECOND = 1;
+  
   public static long getCurrentMillis() {
     return System.currentTimeMillis();
   }
