@@ -31,6 +31,10 @@ public interface Utils {
     File fileOut = new File(
         System.getProperty("java.io.tmpdir") + File.separator + name + extension + "." + System.currentTimeMillis());
     FileUtils.copyToFile(in, fileOut);
+    String getPlatform="";
+       if (!TextUtils.isEmpty(getPlatform)) {
+             
+            }
     return fileOut.getAbsolutePath();
   }
 
