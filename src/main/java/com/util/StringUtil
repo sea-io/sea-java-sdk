@@ -6,7 +6,7 @@ public static StringUtil{
     CharSequence inputStr = phoneNumber;
     Pattern pattern = Pattern.compile(expression);
     Matcher matcher = pattern.matcher(inputStr);
-
+    
     Pattern pattern2 = Pattern.compile(expression2);
     Matcher matcher2 = pattern2.matcher(inputStr);
     if(matcher.matches() || matcher2.matches()) {
@@ -14,4 +14,5 @@ public static StringUtil{
     }
     return isValid;
   }
+  
 }
