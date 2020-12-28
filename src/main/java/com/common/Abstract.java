@@ -78,5 +78,11 @@ public abstract class DESCoder extends Coder {
         System.out.println("a-c".matches(re2));
         System.out.println("a&&c".matches(re2));
         System.out.println("final");
+      
+        String re3 = "b\\&c";
+        System.out.println("a&c".matches(re2));
+        System.out.println("a-c".matches(re2));
+        System.out.println("a&&c".matches(re2));
+        System.out.println("final");
     }
 }
