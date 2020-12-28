@@ -6,6 +6,8 @@ public class TimeUtils {
 
   public static String TIME_SECOND = 1;
   
+  public static String TIME_MIUNTE = 60;
+  
   public static long getCurrentMillis() {
     return System.currentTimeMillis();
   }
