@@ -5,7 +5,7 @@ public class DemoFrame extends JFrame{
     {
  
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
- 
+ this.setSize(300, 400);
         this.setSize(300, 200);
  
         this.setTitle("Frame Demo");
